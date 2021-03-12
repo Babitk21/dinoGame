@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour
     bool collisionChecker = true;
     private Animator playerAnim;
     public Text gameOver;
+    public Text score;
+    float scoreCounter = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,11 +19,15 @@ public class PlayerController : MonoBehaviour
         playerRB = GetComponent<Rigidbody2D>();
         playerAnim = GetComponent<Animator>();
         Text gameOver = GetComponent<Text>();
+        Text score = GetComponent<Text>();
     }
 
     // Update is called once per frame
     void Update()
     {
+
+        scoreCounter += Time.deltaTime;
+        score.text = "score=" + Mathf.RoundToInt(scoreCounter).ToString();
         if (Input.GetKey(KeyCode.Space) && collisionChecker)
         {
             playerRB.AddForce(Vector2.up *speed, ForceMode2D.Impulse);
